@@ -104,7 +104,7 @@ const handleRefreshToken = asyncHandler(async (req, res) => {
   const user = await User.findOne({ refreshToken });
   console.log(user.id);
   if (!user) throw new Error("No refreshToken in database or matched.");
-  jwt.verify(refreshToken, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(refreshToken, process.env.JWT_SECRET?process.env.JWT_SECRET:"Are you Gay"_SECRET, (err, decoded) => {
     if (err || user.id !== decoded.id) {
       throw new Error("There is something wrong with refresh token.");
     } else {

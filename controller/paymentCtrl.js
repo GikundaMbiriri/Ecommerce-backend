@@ -1,6 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const Stripe = require("stripe");
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = Stripe(
+  process.env.JWT_SECRET
+    ? process.env.JWT_SECRET
+    : "sk_test_51JMOG7BXAvS9ZeAiadoruClqy2AN1j8GyIPyRimApxkirMSwazfsxQpqVsezUSMG51aw7eSqsDP4ctvfkYvKU2kO00BR9KaUHG"
+);
 
 const YOUR_DOMAIN = "http://localhost:3000";
 const createCheckoutSession = asyncHandler(async (req, res) => {

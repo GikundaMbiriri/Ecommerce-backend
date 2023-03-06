@@ -10,7 +10,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 
   try {
     if (token) {
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET?process.env.JWT_SECRET:"Are you Gay"_SECRET);
       const user = await User.findById(decodedToken?.id);
       req.user = user;
       next();
@@ -43,7 +43,7 @@ module.exports = { authMiddleware, isAdmin };
 
 //   try {
 //     if (refreshToken) {
-//       const decodedToken = jwt.verify(refreshToken, process.env.JWT_SECRET);
+//       const decodedToken = jwt.verify(refreshToken, process.env.JWT_SECRET?process.env.JWT_SECRET:"Are you Gay"_SECRET);
 //       const user = await User.findById(decodedToken?.id);
 //       req.user = user;
 //       next();
