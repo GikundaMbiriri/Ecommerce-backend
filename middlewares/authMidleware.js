@@ -10,7 +10,10 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 
   try {
     if (token) {
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET?process.env.JWT_SECRET:"Are you Gay"_SECRET);
+      const decodedToken = jwt.verify(
+        token,
+        process.env.JWT_SECRET ? process.env.JWT_SECRET : "Are you Gay"
+      );
       const user = await User.findById(decodedToken?.id);
       req.user = user;
       next();

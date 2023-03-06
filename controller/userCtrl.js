@@ -104,14 +104,18 @@ const handleRefreshToken = asyncHandler(async (req, res) => {
   const user = await User.findOne({ refreshToken });
   console.log(user.id);
   if (!user) throw new Error("No refreshToken in database or matched.");
-  jwt.verify(refreshToken, process.env.JWT_SECRET?process.env.JWT_SECRET:"Are you Gay"_SECRET, (err, decoded) => {
-    if (err || user.id !== decoded.id) {
-      throw new Error("There is something wrong with refresh token.");
-    } else {
-      const accessToken = generateToken(user._id);
-      res.json({ accessToken });
+  jwt.verify(
+    refreshToken,
+    process.env.JWT_SECRET ? process.env.JWT_SECRET : "Are you Gay",
+    (err, decoded) => {
+      if (err || user.id !== decoded.id) {
+        throw new Error("There is something wrong with refresh token.");
+      } else {
+        const accessToken = generateToken(user._id);
+        res.json({ accessToken });
+      }
     }
-  });
+  );
 });
 const saveAddress = asyncHandler(async (req, res, next) => {
   const { _id } = req.user;
